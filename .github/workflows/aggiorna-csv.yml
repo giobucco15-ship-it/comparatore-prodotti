@@ -1,0 +1,40 @@
+name: Aggiorna catalogo CSV
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-csv:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scarica e formatta CSV da Google Sheets
+        run: |
+          mkdir -p dati
+          curl -fsSL "INSERISCI_QUI_IL_LINK_CSV_DI_GOOGLE_SHEETS" -o temp.csv
+          python3 -c '
+          import csv
+          with open("temp.csv", "r", encoding="utf-8") as infile, open("dati/catalogo-2022-2026.csv", "w", encoding="utf-8", newline="") as outfile:
+              reader = csv.reader(infile)
+              writer = csv.writer(outfile, delimiter=";")
+              for row in reader:
+                  if any(cell.strip() for cell in row):
+                      writer.writerow([cell.replace(";", ",") for cell in row])
+          '
+          rm -f temp.csv
+
+      - name: Salva modifiche su GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dati/catalogo-2022-2026.csv
+          if ! git diff --staged --quiet; then
+            git commit -m "Aggiornamento automatico catalogo CSV"
+            git push
+          fi
