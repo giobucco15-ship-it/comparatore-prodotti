@@ -17,7 +17,7 @@ jobs:
       - name: Scarica e formatta CSV da Google Sheets
         run: |
           mkdir -p dati
-          curl -fsSL "INSERISCI_QUI_IL_LINK_CSV_DI_GOOGLE_SHEETS" -o temp.csv
+          curl -fsSL "https://docs.google.com/spreadsheets/d/e/2PACX-1vQLqqLjFVpgfEdRW29hJBNJ-_m4upp4n_D-8a-AWTnWRjhG4PYAPNaTqqQgCn5Nf_lOXV6X8brPNc6F/pub?output=csv" -o temp.csv
           python3 -c '
           import csv
           with open("temp.csv", "r", encoding="utf-8") as infile, open("dati/catalogo-2022-2026.csv", "w", encoding="utf-8", newline="") as outfile:
