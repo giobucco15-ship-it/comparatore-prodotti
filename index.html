@@ -171,12 +171,36 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p><strong>Nota trasparenza:</strong> In qualità di Affiliato Amazon e di altri programmi partner, questo sito riceve una commissione dagli acquisti idonei senza costi aggiuntivi per l'utente. Prezzi e disponibilità sono soggetti a variazioni.</p>
-            <p class="copyright">&copy; 2026 TechCompare - Tutti i diritti riservati</p>
-        </div>
-    </footer>
+   <footer style="text-align:center; padding:1.5rem 1rem; border-top:1px solid #333; margin-top:2rem;">
+  <p>In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.</p>
+  <p>
+    <a href="privacy.html">Privacy Policy</a> ·
+    <a href="cookie.html">Cookie Policy</a> ·
+    <button type="button" id="apri-cookie-banner" style="background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Gestisci cookie</button>
+  </p>
+</footer>
+
+<div id="cookie-banner" style="position:fixed;bottom:16px;left:16px;right:16px;max-width:640px;margin:0 auto;background:#18181b;color:#fff;border:1px solid #3f3f46;border-radius:10px;padding:14px 18px;z-index:9999;display:none;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;">
+  <span style="font-size:0.9rem;">Questo sito usa cookie tecnici e link di affiliazione (Amazon, tag <code>tecnobucco-21</code>) e può usare cookie pubblicitari previo consenso.</span>
+  <div style="display:flex;gap:8px;">
+    <button type="button" id="cookie-rifiuta" style="padding:8px 12px;border-radius:6px;border:1px solid #71717a;background:transparent;color:#fff;cursor:pointer;">Solo necessari</button>
+    <button type="button" id="cookie-accetta" style="padding:8px 14px;border-radius:6px;border:none;background:#facc15;color:#111;font-weight:600;cursor:pointer;">Accetta</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const key = 'comparatore_cookie_consenso_v1';
+    const banner = document.getElementById('cookie-banner');
+    const btnAccetta = document.getElementById('cookie-accetta');
+    const btnRifiuta = document.getElementById('cookie-rifiuta');
+    const btnApri = document.getElementById('apri-cookie-banner');
+    if (!localStorage.getItem(key)) banner.style.display = 'flex';
+    btnAccetta.addEventListener('click', () => { localStorage.setItem(key, 'accepted'); banner.style.display = 'none'; });
+    btnRifiuta.addEventListener('click', () => { localStorage.setItem(key, 'necessary'); banner.style.display = 'none'; });
+    btnApri.addEventListener('click', () => { banner.style.display = 'flex'; });
+  })();
+</script>
 
     <script src="script.js"></script>
 </body>
